@@ -81,10 +81,10 @@ function renderTodoCards(project) {
 					    <i class="fa fa-trash" aria-hidden="true" data-icon="delete"></i>
 					</div>
 				</div>
-				<div class="todo-info">
-					<h5>Due Date;</h5>
+				<div class="todo-info" style="display: none;">
+					<h5>Due Date:</h5>
 					<p>${todo.dueDate}</p>
-					<h5>Description;</h5>
+					<h5>Description:</h5>
 					<p>${todo.description}</p>
 				</div>
 			</div>

@@ -42,7 +42,7 @@ function initEventListeners(project, projectId) {
             Data.addNewTodo(newTodo);
 
             if (newTodoDialog) {
-                newTodoDialog.close(); // Use close() not hideModal()
+                newTodoDialog.close();
             }
             refreshPage(projectId);
         });
@@ -56,8 +56,8 @@ function initEventListeners(project, projectId) {
         });
     }
 
-    // Event delegation for todo cards (using your todos container)
-    const todosContainer = document.querySelector("#todos"); // Adjust if your container ID is different
+    // Event delegation for todo cards
+    const todosContainer = document.querySelector("#todos");
     if (todosContainer) {
         todosContainer.addEventListener("click", (e) => {
             const todoCard = e.target.closest(".todo-card");
@@ -68,12 +68,10 @@ function initEventListeners(project, projectId) {
             const icon = e.target.dataset.icon;
 
             if (icon) {
-                processIconClick(icon, todoId, projectId);
+                processIconClick(icon, todoId, projectId, todoCard);
             }
         });
     }
-
-  
 }
 
 function openNewTodoDialog() {
@@ -81,7 +79,7 @@ function openNewTodoDialog() {
     if (dialog) dialog.showModal();
 }
 
-function processIconClick(icon, todoId, projectId) {
+function processIconClick(icon, todoId, projectId, todoCard) {
     if (!todoId) return;
 
     const todo = Data.getTodoById(todoId);
@@ -93,15 +91,31 @@ function processIconClick(icon, todoId, projectId) {
             refreshPage(projectId);
             break;
         case "info":
-            alert("Info hide/show functionality coming soon");
+            toggleTodoInfo(todoCard);
             break;
         default:
             console.log(`Unknown icon: ${icon}`);
     }
 }
 
+function toggleTodoInfo(todoCard) {
+    const infoSection = todoCard.querySelector(".todo-info");
+    const infoIcon = todoCard.querySelector('.fa-info-circle');
+    
+    if (!infoSection) return;
+    
+    // Simple toggle of display property
+    if (infoSection.style.display === "none" || !infoSection.style.display) {
+        infoSection.style.display = "block";
+        if (infoIcon) infoIcon.style.color = "blue";
+    } else {
+        infoSection.style.display = "none";
+        if (infoIcon) infoIcon.style.color = "";
+    }
+}
+
 function refreshPage(projectId) {
-    const currentProjects = Data.getStoredProjects(); // declared properly
+    const currentProjects = Data.getStoredProjects();
     const openProject = Data.getProjectById(projectId);
 
     if (openProject) {
