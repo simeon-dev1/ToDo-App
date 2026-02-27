@@ -1,7 +1,7 @@
 export function renderTodosPage(project) {
-	const root = document.querySelector("#root")
-	console.log(project)
-	root.innerHTML = `
+  const root = document.querySelector("#root");
+  console.log(project);
+  root.innerHTML = `
 	<div id="todo-page">
 		<div id="todo-page-header">
 			<div id="todo-page-heading">
@@ -47,30 +47,26 @@ export function renderTodosPage(project) {
 
 			</form>
 		</dialog>
-	`
+	`;
 
-	if(!(project.todos.length > 0)) {
-		root.innerHTML += `
+  if (!(project.todos.length > 0)) {
+    root.innerHTML += `
 			<div class="empty">
 				<h3>No Todos Yet</h3>
 			</div>
-		`
-	}
-	else {
-		renderTodoCards(project);
-	}
-
+		`;
+  } else {
+    renderTodoCards(project);
+  }
 }
 
-
 function renderTodoCards(project) {
-	let todos = project.todos;
-	const todosDiv = document.querySelector("#todos")
-	todos.sort((a, b) => a.dueDate.localeCompare(b.dueDate));
+  let todos = project.todos;
+  const todosDiv = document.querySelector("#todos");
+  todos.sort((a, b) => a.dueDate.localeCompare(b.dueDate));
 
-
-	todos.forEach(todo => {
-		todosDiv.innerHTML += `
+  todos.forEach((todo) => {
+    todosDiv.innerHTML += `
 			<div class="todo-card" style="border-left: 0.7rem solid ${todo.priorityColor}" data-todo-id="${todo.id}">
 				<div class="todo-show">
 					<div class="todo-done">
@@ -88,6 +84,6 @@ function renderTodoCards(project) {
 					<p>${todo.description}</p>
 				</div>
 			</div>
-		`
-	})
+		`;
+  });
 }
